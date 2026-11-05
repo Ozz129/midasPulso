@@ -1,0 +1,270 @@
+/* Estilos compartidos por las vistas de acceso.
+   Los tamaños verticales escalan con la altura de la ventana (vh) para que
+   el formulario completo quepa sin desplazamiento; los mínimos garantizan
+   legibilidad y objetivos táctiles de al menos 44 px. */
+.page {
+  width: 100%;
+  max-width: 32rem;
+
+  --field-gap: clamp(0.25rem, 0.8vh, 0.5rem);
+  --field-label-size: clamp(0.9375rem, 2.1vh, 1.125rem);
+  --field-input-height: clamp(2.75rem, 5.8vh, 3.375rem);
+  --field-input-size: clamp(1rem, 2.1vh, 1.125rem);
+  --button-lg-height: clamp(2.875rem, 6.4vh, 3.5rem);
+  --button-lg-size: clamp(1.25rem, 3vh, 1.625rem);
+}
+
+/* Variante para formularios largos (registro): proporciones verticales más
+   compactas para que formulario y acceso social quepan sin desplazamiento. */
+.dense {
+  --field-gap: clamp(0.1875rem, 0.6vh, 0.5rem);
+  --field-label-size: clamp(0.875rem, 2vh, 1.125rem);
+  --field-input-height: clamp(2.5rem, 5.1vh, 3.375rem);
+  --button-lg-height: clamp(2.625rem, 5.6vh, 3.5rem);
+  --button-lg-size: clamp(1.125rem, 2.8vh, 1.625rem);
+  --social-height: clamp(2.5rem, 5.2vh, 3.5rem);
+  --social-gap: clamp(0.375rem, 1.3vh, 1.25rem);
+  --social-label-size: clamp(0.875rem, 2vh, 1.25rem);
+  --dense-stack-gap: clamp(0.375rem, 1.3vh, 1rem);
+}
+
+.dense .fields {
+  gap: var(--dense-stack-gap);
+}
+
+.dense .form {
+  gap: clamp(0.5rem, 1.7vh, 1.5rem);
+}
+
+.dense .title {
+  font-size: min(clamp(2.5rem, 2rem + 4vw, 4.75rem), clamp(2rem, 7vh, 4.75rem));
+}
+
+.dense .intro {
+  margin-bottom: clamp(0.5rem, 2.2vh, 1.5rem);
+}
+
+@media (max-height: 44rem) {
+  .dense .subtitle {
+    display: none;
+  }
+}
+
+@media (max-height: 38rem) {
+  .dense .eyebrow {
+    display: none;
+  }
+}
+
+.intro {
+  display: grid;
+  gap: clamp(0.125rem, 0.8vh, 0.5rem);
+  margin-bottom: clamp(0.75rem, 2.6vh, 1.5rem);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-signature);
+  font-size: clamp(0.8125rem, 2vh, 1.125rem);
+  font-style: italic;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: '';
+  flex-shrink: 0;
+  width: 0.75em;
+  height: 1em;
+  background-color: var(--color-signature);
+  transform: skewX(-20deg);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: min(clamp(2.5rem, 2rem + 4vw, 4.75rem), clamp(2.25rem, 7.6vh, 4.75rem));
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.title:focus {
+  outline: none;
+}
+
+.subtitle {
+  font-size: min(clamp(1.125rem, 1rem + 1vw, 1.75rem), clamp(1.0625rem, 3vh, 1.75rem));
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.form {
+  position: relative;
+  display: grid;
+  gap: clamp(0.625rem, 2vh, 1.5rem);
+}
+
+.fields {
+  display: grid;
+  gap: clamp(0.5rem, 1.7vh, 1rem);
+}
+
+.alert {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-error-bg);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+
+/* Aviso flotante: no ocupa espacio en el formulario (no provoca scroll). */
+.notice {
+  position: fixed;
+  z-index: 20;
+  left: 50%;
+  bottom: max(var(--space-4), env(safe-area-inset-bottom));
+  width: min(32rem, calc(100vw - 2rem));
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface-raised);
+  border: 1px solid var(--color-pending);
+  border-left-width: 4px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.45);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  transform: translateX(-50%);
+}
+
+/* En pantallas anchas va a la esquina, sobre la marca de agua: no tapa el formulario. */
+@media (min-width: 80rem) {
+  .notice {
+    left: auto;
+    right: var(--space-4);
+    bottom: var(--space-5);
+    width: 20rem;
+    transform: none;
+  }
+}
+
+/* Regiones vivas vacías: siguen en el árbol de accesibilidad (para anunciar
+   el próximo mensaje) pero no ocupan espacio ni generan hueco en el grid. */
+.alert:empty,
+.notice:empty {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  border: 0;
+}
+
+.password-group {
+  display: grid;
+  justify-items: start;
+  gap: clamp(0.375rem, 1.2vh, 0.75rem);
+}
+
+.password-group > :first-child {
+  justify-self: stretch;
+}
+
+.text-link {
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: clamp(0.9375rem, 2.1vh, 1.125rem);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.3em;
+  cursor: pointer;
+}
+
+.text-link:hover {
+  color: var(--color-accent);
+}
+
+.alt {
+  font-size: clamp(0.9375rem, 2.1vh, 1.125rem);
+  text-align: center;
+}
+
+.link {
+  margin-left: var(--space-2);
+  color: var(--color-accent);
+  font-weight: var(--weight-medium);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.35em;
+  border-radius: var(--radius-sm);
+}
+
+.link:hover {
+  color: var(--color-accent-hover);
+}
+
+.success {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.success-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-self: start;
+  color: var(--color-success);
+  font-weight: var(--weight-semibold);
+}
+
+.success-badge svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.muted {
+  color: var(--color-text-secondary);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--button-lg-height);
+  padding-inline: var(--space-6);
+  background-color: var(--color-accent);
+  border-radius: var(--radius-md);
+  color: var(--color-text-on-accent);
+  font-size: var(--button-lg-size);
+  font-weight: var(--weight-bold);
+  text-decoration: none;
+}
+
+.cta:hover {
+  background-color: var(--color-accent-hover);
+}
+
+/* Ventanas muy bajas: recorta márgenes antes que tamaños de texto. */
+@media (max-height: 40rem) {
+  .intro {
+    margin-bottom: var(--space-2);
+  }
+
+  .form {
+    gap: var(--space-3);
+  }
+}

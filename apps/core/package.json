@@ -1,0 +1,44 @@
+{
+  "name": "@mydas-pulso/core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pulso Core — API REST compartida por Pulso Web y Pulso Mobile.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "dev": "nest start --watch",
+    "build": "nest build",
+    "start": "node dist/main.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "oxlint --deny-warnings src",
+    "migration:create": "typeorm migration:create",
+    "migration:generate": "nest build && typeorm migration:generate -d dist/database/data-source.js",
+    "migration:run": "nest build && typeorm migration:run -d dist/database/data-source.js",
+    "migration:show": "nest build && typeorm migration:show -d dist/database/data-source.js",
+    "migration:revert": "nest build && typeorm migration:revert -d dist/database/data-source.js"
+  },
+  "dependencies": {
+    "@nestjs/common": "^12.3.3",
+    "@nestjs/config": "^12.1.0",
+    "@nestjs/core": "^12.3.3",
+    "@nestjs/platform-express": "^12.3.3",
+    "@nestjs/swagger": "^12.1.0",
+    "@nestjs/throttler": "^6.7.1",
+    "@nestjs/typeorm": "^12.0.2",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "pg": "^8.23.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "typeorm": "^1.1.2",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^12.0.11",
+    "@nestjs/schematics": "^12.0.12",
+    "@types/express": "^5.0.6",
+    "@types/node": "^24.19.2",
+    "oxlint": "^1.91.0",
+    "typescript": "~6.0.3"
+  }
+}

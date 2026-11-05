@@ -1,0 +1,26 @@
+# Dependencias
+node_modules/
+
+# Compilados
+dist/
+dist-ssr/
+*.tsbuildinfo
+coverage/
+
+# Entornos locales (pueden contener credenciales)
+.env
+.env.*
+!.env.example
+*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Editor y sistema
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db

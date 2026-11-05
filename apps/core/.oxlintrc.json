@@ -1,0 +1,9 @@
+{
+  "$schema": "../../node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "oxc", "import"],
+  "env": { "node": true },
+  "rules": {
+    "typescript/no-explicit-any": "error",
+    "no-console": "error"
+  }
+}

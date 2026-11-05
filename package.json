@@ -1,0 +1,35 @@
+{
+  "name": "mydas-pulso",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MYDAS PULSO — acompañamiento deportivo entre coach y coachee (Mydas Tech).",
+  "license": "UNLICENSED",
+  "workspaces": [
+    "apps/core",
+    "apps/web"
+  ],
+  "engines": {
+    "node": "^22.13.0 || >=24.11.0",
+    "npm": ">=10"
+  },
+  "packageManager": "npm@11.19.0",
+  "scripts": {
+    "dev": "concurrently --names core,web --prefix-colors green,magenta --kill-others-on-fail \"npm:dev:core\" \"npm:dev:web\"",
+    "dev:core": "npm run dev -w @mydas-pulso/core --",
+    "dev:web": "npm run dev -w @mydas-pulso/web --",
+    "start:core": "npm run start -w @mydas-pulso/core --",
+    "preview:web": "npm run preview -w @mydas-pulso/web --",
+    "build": "npm run build --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "lint": "npm run lint --workspaces",
+    "check": "npm run typecheck && npm run lint && npm run build",
+    "migration:create": "npm run migration:create -w @mydas-pulso/core --",
+    "migration:generate": "npm run migration:generate -w @mydas-pulso/core --",
+    "migration:run": "npm run migration:run -w @mydas-pulso/core",
+    "migration:show": "npm run migration:show -w @mydas-pulso/core",
+    "migration:revert": "npm run migration:revert -w @mydas-pulso/core"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}

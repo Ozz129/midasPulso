@@ -1,0 +1,85 @@
+/*
+ * Tokens de diseño de MYDAS PULSO (tema oscuro).
+ * 1) Paleta de marca: valores crudos, no se usan directamente en componentes.
+ * 2) Tokens semánticos: lo que consumen layout y componentes.
+ * 3) Estados funcionales: separados de la marca (éxito/error/pendiente).
+ */
+:root {
+  /* 1. Paleta de marca */
+  --brand-graphite: #111318;
+  --brand-slate: #222630;
+  --brand-cold-white: #f5f7fa;
+  --brand-lime: #c6f64e;
+  --brand-violet: #beaaff; /* Reservado para Asistente Pulso */
+  --brand-gold: #c9a34e; /* Firma corporativa de DORÉ */
+
+  /* 2. Superficies y texto */
+  --color-bg: var(--brand-graphite);
+  --color-surface: var(--brand-slate);
+  --color-surface-raised: #2b303c;
+  --color-text: var(--brand-cold-white);
+  --color-text-secondary: #a9b0bf;
+  --color-text-on-accent: var(--brand-graphite);
+  --color-border: #343a47;
+  --color-border-strong: #4a5263;
+
+  /* Acción principal y foco */
+  --color-accent: var(--brand-lime);
+  --color-accent-hover: #d6fa7a;
+  --color-accent-active: #b2e136;
+  --color-focus-ring: var(--brand-lime);
+
+  /* Acentos reservados */
+  --color-assistant: var(--brand-violet);
+  --color-signature: var(--brand-gold);
+
+  /* 3. Estados funcionales (independientes de la marca) */
+  --color-success: #4fd1a5;
+  --color-success-bg: rgb(79 209 165 / 0.14);
+  --color-error: #ff7a7a;
+  --color-error-bg: rgb(255 122 122 / 0.14);
+  --color-pending: #9fb3d9;
+  --color-pending-bg: rgb(159 179 217 / 0.14);
+
+  /* Tipografía */
+  --font-sans: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Barlow Condensed', 'Arial Narrow', 'Roboto Condensed', sans-serif-condensed,
+    system-ui, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: clamp(1.875rem, 1.4rem + 2vw, 2.5rem);
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --leading-tight: 1.15;
+  --leading-normal: 1.5;
+
+  /* Espaciado (escala de 4 px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+
+  /* Radios */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-pill: 999px;
+
+  /* Foco, layout y movimiento */
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 2px;
+  --content-max-width: 72rem;
+  --header-height: 4rem;
+  --transition-fast: 120ms ease-out;
+}
