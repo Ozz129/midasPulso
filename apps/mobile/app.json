@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "Pulso PoC",
+    "slug": "mydas-pulso-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.mydastech.pulso.poc",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Pulso usa la cámara para analizar tu postura en tiempo real. Los fotogramas se procesan en el teléfono y no se guardan."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.mydastech.pulso.poc",
+      "permissions": [
+        "android.permission.CAMERA"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "react-native-fast-tflite",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 26
+          }
+        }
+      ],
+      "./plugins/withShortNativeBuildPath",
+      "./plugins/withAndroidShaders"
+    ],
+    "backgroundColor": "#111318"
+  }
+}

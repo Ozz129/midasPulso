@@ -6,7 +6,7 @@ Producto de **Mydas Tech** para el acompañamiento deportivo entre coach y coach
 | --- | --- | --- |
 | **Pulso Web** (`apps/web`) | Panel exclusivo del coach: clientes, entrevistas, rutinas, agenda y planes de alimentación. | Shell inicial |
 | **Pulso Core** (`apps/core`) | Backend compartido. API REST por dominio de negocio; concentra reglas de acceso y validaciones. | Base + health |
-| **Pulso Mobile** (`apps/mobile`) | Una sola app para coach y coachee: entrenamiento guiado, captura con cámara, observaciones de IA y devoluciones del coach. | Planificado |
+| **Pulso Mobile** (`apps/mobile`) | Una sola app para coach y coachee: entrenamiento guiado, captura con cámara, observaciones de IA y devoluciones del coach. | PoC de postura (cámara + evaluación en el dispositivo) |
 
 ## Requisitos
 
@@ -21,19 +21,25 @@ mydas-pulso/
   apps/
     web/        React 19 + TypeScript + Vite 8 · CSS Modules + variables CSS
     core/       NestJS 12 + TypeScript (ESM) · TypeORM 1 + pg · OpenAPI
+    mobile/     Expo SDK 58 + React Native 0.88 · VisionCamera 5 + MoveNet (TFLite) · development build
   scripts/      Utilidades (crear la base de desarrollo local)
   compose.yaml  PostgreSQL de desarrollo (opcional, Docker)
   package.json  Workspaces y scripts de la raíz
 ```
 
+El monorepo fuerza una sola versión de React (`overrides` en la raíz) porque React Native no admite copias duplicadas en la misma app.
+
 Estructura objetivo (se incorpora con sus flujos):
 
 ```
-  apps/mobile/          App única para coach y coachee
   packages/api-client/  Cliente tipado del contrato OpenAPI de Core, compartido por Web y Mobile
 ```
 
-`packages/api-client` se creará cuando exista un segundo consumidor de la API (Mobile). Mientras tanto, Web construye sus URLs con `apiUrl()` en `apps/web/src/shared/api/apiUrl.ts`.
+`packages/api-client` se creará cuando Mobile consuma la API de Core (el PoC actual no usa red). Mientras tanto, Web construye sus URLs con `apiUrl()` en `apps/web/src/shared/api/apiUrl.ts`.
+
+### Pulso Mobile
+
+PoC autocontenido: el coach captura una postura de referencia de sentadilla y la app la compara en tiempo real con la de un usuario, en el mismo teléfono y sin red. Detalles, comandos para abrirla en un iPhone físico y su protocolo de prueba: [apps/mobile/README.md](apps/mobile/README.md) y [apps/mobile/PROTOCOLO-PRUEBA.md](apps/mobile/PROTOCOLO-PRUEBA.md). La evaluación vive en `apps/mobile/src/assessment/`, en TypeScript sin React Native, para reutilizarla en Web.
 
 ### Pulso Core
 
@@ -136,9 +142,12 @@ En ambos casos: `DATABASE_URL=postgres://pulso:pulso@localhost:5432/mydas_pulso`
 | `npm run build` | Compila Core (`apps/core/dist`) y Web (`apps/web/dist`) |
 | `npm run start:core` | Ejecuta Core compilado |
 | `npm run preview:web` | Sirve el build de Web en http://localhost:4173 |
-| `npm run typecheck` | Verificación de tipos en ambos workspaces |
-| `npm run lint` | oxlint en ambos workspaces |
-| `npm run check` | typecheck + lint + build |
+| `npm run typecheck` | Verificación de tipos en todos los workspaces |
+| `npm run lint` | oxlint en todos los workspaces |
+| `npm run test` | Pruebas de los workspaces que las tienen (hoy: Mobile) |
+| `npm run check` | typecheck + lint + test + build |
+| `npm run dev:mobile` | Servidor de desarrollo de Mobile para el development build |
+| `npm run ios:device` | Compila e instala Mobile en un iPhone conectado (requiere macOS + Xcode) |
 | `npm run migration:show` | Lista migraciones y su estado |
 | `npm run migration:run` | Ejecuta las migraciones pendientes |
 | `npm run migration:revert` | Revierte la última migración |
@@ -222,5 +231,5 @@ Registro e inicio de sesión del coach ya están conectados. Siguiente corte: **
 
 ## Notas
 
-- `npm audit` reporta una vulnerabilidad moderada en `minimatch`, fijada por `@nestjs/cli` 12 (solo desarrollo, no se incluye en el build). Se resolverá al actualizar el CLI.
+- `npm audit` reporta vulnerabilidades moderadas en `minimatch` y `glob`, que llegan a través de `@nestjs/cli` 12 y de las herramientas de Expo (`@expo/cli`, `@expo/fingerprint`). Son solo de desarrollo y no se incluyen en los builds. El «arreglo» que propone npm es volver a Expo 53 y Nest CLI 11, así que se resolverán al actualizar esas herramientas.
 - El paquete `@scarf/scarf` (dependencia de `@nestjs/swagger`) declara un `postinstall` de telemetría que npm no ejecuta por defecto; no es necesario aprobarlo.

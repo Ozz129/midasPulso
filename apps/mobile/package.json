@@ -1,0 +1,51 @@
+{
+  "name": "@mydas-pulso/mobile",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pulso Mobile — PoC de captura de postura de referencia y evaluación de sentadilla en el dispositivo.",
+  "license": "UNLICENSED",
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start --dev-client",
+    "ios:device": "expo run:ios --device",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint --deny-warnings src App.tsx scripts plugins",
+    "test": "vitest run",
+    "doctor": "expo-doctor",
+    "monitor": "node scripts/monitor.cjs"
+  },
+  "dependencies": {
+    "expo": "~58.0.23",
+    "expo-build-properties": "~58.0.12",
+    "expo-dev-client": "~58.0.18",
+    "expo-keep-awake": "~58.0.3",
+    "expo-speech": "~58.0.3",
+    "expo-status-bar": "~58.0.4",
+    "expo-system-ui": "~58.0.7",
+    "react": "19.3.0",
+    "react-native": "0.88.1",
+    "react-native-fast-tflite": "^3.0.1",
+    "react-native-nitro-image": "^0.15.2",
+    "react-native-nitro-modules": "^0.37.2",
+    "react-native-safe-area-context": "~5.11.1",
+    "react-native-vision-camera": "^5.2.4",
+    "react-native-vision-camera-resizer": "^5.2.4",
+    "react-native-vision-camera-worklets": "^5.2.4",
+    "react-native-worklets": "0.13.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.3.0",
+    "oxlint": "^1.91.0",
+    "typescript": "~6.0.3",
+    "vitest": "^4.1.12"
+  },
+  "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "exclude": [
+          "react-native-fast-tflite"
+        ]
+      }
+    }
+  }
+}

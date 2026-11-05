@@ -6,7 +6,8 @@
   "license": "UNLICENSED",
   "workspaces": [
     "apps/core",
-    "apps/web"
+    "apps/web",
+    "apps/mobile"
   ],
   "engines": {
     "node": "^22.13.0 || >=24.11.0",
@@ -19,17 +20,25 @@
     "dev:web": "npm run dev -w @mydas-pulso/web --",
     "start:core": "npm run start -w @mydas-pulso/core --",
     "preview:web": "npm run preview -w @mydas-pulso/web --",
-    "build": "npm run build --workspaces",
-    "typecheck": "npm run typecheck --workspaces",
-    "lint": "npm run lint --workspaces",
-    "check": "npm run typecheck && npm run lint && npm run build",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "check": "npm run typecheck && npm run lint && npm run test && npm run build",
     "migration:create": "npm run migration:create -w @mydas-pulso/core --",
     "migration:generate": "npm run migration:generate -w @mydas-pulso/core --",
     "migration:run": "npm run migration:run -w @mydas-pulso/core",
     "migration:show": "npm run migration:show -w @mydas-pulso/core",
-    "migration:revert": "npm run migration:revert -w @mydas-pulso/core"
+    "migration:revert": "npm run migration:revert -w @mydas-pulso/core",
+    "test": "npm run test --workspaces --if-present",
+    "dev:mobile": "npm run start -w @mydas-pulso/mobile --",
+    "ios:device": "npm run ios:device -w @mydas-pulso/mobile --",
+    "monitor:mobile": "npm run monitor -w @mydas-pulso/mobile --"
   },
   "devDependencies": {
     "concurrently": "^10.0.6"
+  },
+  "overrides": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   }
 }
